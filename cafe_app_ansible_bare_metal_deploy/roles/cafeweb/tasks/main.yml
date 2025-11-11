@@ -76,3 +76,9 @@
     src: "{{ apache_config_template }}"
     dest: /etc/apache2/sites-available/000-default.conf
   notify: Reload Apache
+
+# Restart Apache service at the end
+- name: Restart Apache service
+  service:
+    name: apache2
+    state: restarted
