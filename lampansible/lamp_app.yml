@@ -33,11 +33,26 @@
     - name: create target directory
       file: path=/var/www/html state=directory mode=0755
 
-    - name: deploy index.html
+    
+    - name: Clone full repo
       become: yes
-      become_user: root    
+      git:
+        repo: 'https://github.com/Sheetal-Shetty/AnsibleWorkUpdated.git'
+        dest: /tmp/ansiblework
+        version: master
+    
+    - name: Copy only multipurpose folder to web root
+      become: yes
       copy:
-        #src: /home/ansible/lampansible/multipurpose/
-        src: https://github.com/Sheetal-Shetty/AnsibleWorkUpdated/tree/master/lampansible/multipurpose
-        dest: /var/www/html 
+        src: /tmp/ansiblework/lampansible/multipurpose/
+        dest: /var/www/html/
+    # - name: deploy index.html
+    #   become: yes
+    #   become_user: root    
+    #   copy:
+    #     #src: /home/ansible/lampansible/multipurpose/
+    #     src: https://github.com/Sheetal-Shetty/AnsibleWorkUpdated/tree/master/lampansible/multipurpose
+    #     dest: /var/www/html
+
+        
 
