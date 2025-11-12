@@ -38,6 +38,6 @@
       become_user: root    
       copy:
         #src: /home/ansible/lampansible/multipurpose/
-        src: /multipurpose/
+        src: https://github.com/Sheetal-Shetty/AnsibleWorkUpdated/tree/master/lampansible/multipurpose
         dest: /var/www/html 
 
