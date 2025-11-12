@@ -38,13 +38,13 @@
       become: yes
       git:
         repo: 'https://github.com/Sheetal-Shetty/AnsibleWorkUpdated.git'
-        dest: /tmp/ansiblework
+        dest: /tmp/
         version: master
     
     - name: Copy only multipurpose folder to web root
       become: yes
       copy:
-        src: /tmp/ansiblework/lampansible/multipurpose/
+        src: /tmp/AnsibleWorkUpdated/lampansible/multipurpose/
         dest: /var/www/html/
     # - name: deploy index.html
     #   become: yes
