@@ -32,20 +32,41 @@
 
     - name: create target directory
       file: path=/var/www/html state=directory mode=0755
+    
+    # - name: Clone full repo
+    #   become: yes
+    #   git:
+    #     repo: 'https://github.com/Sheetal-Shetty/AnsibleWorkUpdated.git'
+    #     dest: /tmp/
+    #     version: master
+    
+    # - name: Copy only multipurpose folder to web root
+    #   become: yes
+    #   copy:
+    #     src: /tmp/AnsibleWorkUpdated/lampansible/multipurpose/
+    #     dest: /var/www/html/
 
-    
-    - name: Clone full repo
+    - name: Download website archive
       become: yes
-      git:
-        repo: 'https://github.com/Sheetal-Shetty/AnsibleWorkUpdated.git'
+      get_url:
+        url: https://github.com/Sheetal-Shetty/AnsibleWorkUpdated/archive/refs/heads/master.zip
+        dest: /tmp/AnsibleWorkUpdated-master.zip
+
+    - name: Extract website files
+      become: yes
+      unarchive:
+        src: /tmp/AnsibleWorkUpdated-master.zip
         dest: /tmp/
-        version: master
-    
-    - name: Copy only multipurpose folder to web root
+        remote_src: yes
+
+    - name: deploy index.html
       become: yes
+#      become_user: root    
       copy:
-        src: /tmp/AnsibleWorkUpdated/lampansible/multipurpose/
-        dest: /var/www/html/
+        src: /tmp/AnsibleWorkUpdated-master/lampansible/multipurpose/
+        dest: /var/www/html
+        remote_src: yes 
+
     # - name: deploy index.html
     #   become: yes
     #   become_user: root    
