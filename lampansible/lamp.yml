@@ -9,8 +9,8 @@
         pkg:
           - apache2
           - mysql-server
-          - php7.2 
-          - php7.2-mysql
+          - php 
+          - php-mysql
         state: present
         update_cache: yes
 
@@ -30,13 +30,44 @@
         state: started
         enabled: yes
 
+    - name: Change Apache DocumentRoot to /var/www/html
+      become: yes
+      lineinfile:
+        path: /etc/apache2/sites-available/000-default.conf
+        regexp: '^\s*DocumentRoot\s+'
+        line: 'DocumentRoot /var/www/html'
+        backup: yes
+    - name: Restart apache using service module
+      become: yes
+      service:
+        name: apache2
+        state: restarted    
     - name: create target directory
       file: path=/var/www/html state=directory mode=0755
+        - name: Download website archive
+      become: yes
+      get_url:
+        url: https://github.com/Sheetal-Shetty/AnsibleWorkUpdated/archive/refs/heads/master.zip
+        dest: /tmp/AnsibleWorkUpdated-master.zip
+
+    - name: Extract website files
+      become: yes
+      unarchive:
+        src: /tmp/AnsibleWorkUpdated-master.zip
+        dest: /tmp/
+        remote_src: yes
 
     - name: deploy index.html
       become: yes
-      become_user: root    
+#      become_user: root    
       copy:
-        src: /home/ansible/lampansible/index.html
-        dest: /var/www/html/index.html
+        src: /tmp/AnsibleWorkUpdated-master/lampansible/multipurpose/
+        dest: /var/www/html
+        remote_src: yes 
+    # - name: deploy index.html
+    #   become: yes
+    #   become_user: root    
+    #   copy:
+    #     src: /home/ansible/lampansible/index.html
+    #     dest: /var/www/html/index.html
 
