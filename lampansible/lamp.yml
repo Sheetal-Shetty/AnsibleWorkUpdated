@@ -44,7 +44,7 @@
         state: restarted    
     - name: create target directory
       file: path=/var/www/html state=directory mode=0755
-        - name: Download website archive
+    - name: Download website archive
       become: yes
       get_url:
         url: https://github.com/Sheetal-Shetty/AnsibleWorkUpdated/archive/refs/heads/master.zip
@@ -61,8 +61,8 @@
       become: yes
 #      become_user: root    
       copy:
-        src: /tmp/AnsibleWorkUpdated-master/lampansible/multipurpose/
-        dest: /var/www/html
+        src: /tmp/AnsibleWorkUpdated-master/lampansible/index.html
+        dest: /var/www/html/index.html
         remote_src: yes 
     # - name: deploy index.html
     #   become: yes
