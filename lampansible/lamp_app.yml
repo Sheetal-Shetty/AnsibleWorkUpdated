@@ -36,13 +36,13 @@
         regexp: '^\s*DocumentRoot\s+'
         line: 'DocumentRoot /var/www/html'
         backup: yes
-
-    - name: Restart Apache
+    - name: Restart apache using service module
       become: yes
       service:
         name: apache2
-        state: restarted
-    
+        state: restarted    
+
+
     - name: create target directory
       file: path=/var/www/html state=directory mode=0755
     
