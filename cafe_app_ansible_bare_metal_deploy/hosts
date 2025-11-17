@@ -1,9 +1,9 @@
 [webservers]
-172.18.181.50  ansible_ssh_user=msis ansible_ssh_private_key_file=nov11 ansible_become=true 
+172.18.181.50  ansible_ssh_user=msis ansible_ssh_private_key_file=nov ansible_become=true 
 [webservers:vars]
 ansible_python_interpreter=/usr/bin/python3
 [dbservers]
-172.18.181.50  ansible_ssh_user=msis ansible_ssh_private_key_file=nov11 ansible_become=true 
+172.18.181.50  ansible_ssh_user=msis ansible_ssh_private_key_file=nov ansible_become=true 
 [dbservers:vars]
 ansible_python_interpreter=/usr/bin/python3
 
